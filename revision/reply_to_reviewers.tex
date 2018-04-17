@@ -1,0 +1,74 @@
+\documentclass[]{article}
+
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+
+\begin{document}
+
+%\maketitle
+
+
+\section*{Response to Reviewer 1}
+
+We thank the reviewer for his/her constructive comments and are pleased with the positive assessment or our work. We have addressed the specific comments made by the reviewer as described below. We hope that the revised manuscript can now be accepted for publication.
+
+\dotfill
+
+\textbf{1. Reviewer:} \textit{One comparison that came to mind reading the paper, is that the results show very little value in optimizing the most-downstream turbines, and in general, improvement in power comes from modifications upstream, and that self-optimization is not possible. This stands in contrast to a result such as:}
+	
+\textit{Ciri, Umberto, Mario Rotea, Christian Santoni, and Stefano Leonardi. “Large Eddy Simulation for an Array of Turbines with Extremum Seeking Control.” In American Control Conference. Boston, MA, 2016. }
+	
+\textit{Where the TSR of downstream turbines is re-optimized for wake conditions (and the upstream turbine is left as is at the end of the optimization). It would seem the difference in modeling methods and/or how turbine control is implemented yields the different results, but I believe it would be worth discussing the difference, for example around the paragraph beginning with "The figure shows that the first row (R1)..." on page 12.}
+
+\textbf{Response:} The reason for this different behavior of the downstream vs upstream turbines is twofold:
+\begin{enumerate}
+	\item The Extremum Seeking Control (ESC) approach by Ciri \emph{et al.} differs fundamentally from our approach. In our approach, we simultaneously optimize all control variables over a given time horizon, which allows for full dynamic cooperation and interaction between all turbines. In the ESC, controls are optimized one by one in the sense that ESC is initiated on the first row turbine and will be activated on the subsequent row only after its upstream neighbor has converged to a steady state solution. In this way, dynamic control and interaction between controls in different turbines are discarded a priori. Furthermore, although this is not an inherent limitation of the ESC approach, it seems that Ciri \emph{et al.} optimize for individual turbine power instead of total wind-farm power (see Eq. 10 $P_i$ is used instead of $\sum_i P_i$). Note that in Santoni \emph{et al.} (from the same research group as Ciri \emph{et al.}), where a Jensen model is used to optimize total wind-farm power using the individual tip speed ratios, it is also found that after full-farm optimization the downstream turbine operates at its individually optimal TSR (consistent with our observations).
+	
+	\item In our modeling approach, we make abstraction of detailed turbine dynamics in the sense that we directly control the thrust coefficient $C_T'$ instead of the generator torque or tip speed ratio. In this sense, the optimal thrust coefficient value of a turbine with no downstream neighbors can be analytically found to be $C_T' = 2$. In Ciri \emph{et al.}, the authors indicate that the reason why the TSR in the downstream rows (around 6.5) does not correspond to the individual optimal TSR (7.5) of individual turbines is that the TSR depends on a reference velocity and (direct quotation) ``As a consequence, the TSR is not a meaningful indicated of a waked turbine operating condition". 
+	
+\end{enumerate}
+
+Summarizing, the inverse behavior of the control dynamics compared to Ciri \emph{et al.} can be attributed to the difference in approach to wind-farm control (dynamic full-farm optimization vs steady one-by-one optimization) as well as the implementation of the turbine control ($C_T'$ vs $\lambda$). We believe that, if we were to constrain ourselves to steady control and would control a similarly defined $\lambda$ as in Ciri \emph{et al.}, our observations would be similar to the latter study. Note that Ciri \emph{et al.} do not increase wind-farm power over the case with turbines operating at locally optimal TSR, whereas our dynamic approach allows to improve power significantly over the case with locally optimal operation. 
+
+In our opinion, the current study (full-farm dynamic wind-farm optimization) and that of Ciri \emph{et al.} (providing a practical ESC method for optimizing individual turbines) cannot be directly compared. However, we understand the contrast in the results and therefore added a small comment to the revised manuscript (WM - WEET NIET OF WE DIT WEL ECHT MOETEN DOEN, COMMENTS KOMT WAT VERLOREN UIT IN MANUSCRIPT, MISSCHIEN GEWOON REVIEWER OVERTUIGEN DAT WE DIT NIET INCLUDEN?) (l. ??, p. ??):
+
+``
+... is not monotonous. Note that these observations are in contrast to the study of Ciri \emph{et al.} (REF), where Extremum Seeking Control is applied to optimize an array of three turbines and it was found that the set points in the first-row turbines remain untouched from their locally optimal values whereas downstream turbines are re-optimized for wake conditions. This contrast can mainly be attributed to our dynamic control approach, which allows for proper improvement of downstream flow conditions (which is not the case for set-point control as in Ciri \emph{et al.}), and that our ADM makes abstraction of any re-optimization of TSR.
+''
+
+WM - KAN WEL GOED ZIJN DAT ROTEA HIER DE REVIEWER IS - ZIEN DAT WE NIETS FOUT ZEGGEN. ANTWOORD IS NOG NIET ZO SCHERP ALS IK HET ZELF WIL. VOORAL IN ENUMERATE NOG WAT TE KNIPPEN
+
+\dotfill
+
+\textbf{2. Reviewer:} \textit{Figure 3/related text: Would another way to describe Ct2 vs Ct3 be that Ct2 can only lower the thrust, while Ct3 is allowed to raise it?}
+
+\textbf{Response:} Indeed, this is correct. We have mentioned this explicitly in the revised manuscript as follows (p. ??, l. ??):
+
+``
+... and the maximal thrust coefficient $C_{T,\rm max}' = 2$ or 3, \textbf{with thrust forces that can respectively only be reduced (underinductive), or also increased (overinductive) compared to the Betz optimum at $C_T' = 2$} (see Eq. 5). 
+''
+
+\dotfill
+
+\textbf{3. Reviewer:} \textit{``... NREL 5MW rotor with a 50\% increase in chord length ...'' does this imply the method is currently assuming the chord length is variable? Could this not be achieved by a change in pitch angle?}
+
+\textbf{Response:} No, the method does not imply a variable chord length. 
+
+Current turbines are designed to approach maximum $C_T'$ values around 2, corresponding to the Betz limit. Although this maximum value can be increased by increasing the operational tip speed ratio (TSR), aiming to do so by adapting the pitch angle would inevitably lead to severe efficiency losses due to stall on the turbine blades. Therefore, we provide an example of how an alternative turbine design (i.e. with an increased chord length and operational TSR) could attain a maximum $C_T'$ of 3.5. Given such a turbine design, achieving thrust ratings $C_T' < 3.5$ is straightforward by pitching blades towards the feather position. 
+
+We have slightly modified the statement in the revised manuscript to avoid any confusion with regard to possibly having the chord length as a control variable. (p. ??, l. ??):
+``
+be \textbf{attained by the NREL 5MW turbine with a slight modification in the rotor design}, i.e. a 50\% increase in blade chord length and an operational tip speed ratio 25\% higher than 
+the original design value (see Goit and Meyers, 2015, Appendix A)
+'' 
+
+
+
+
+\clearpage
+\section*{Response to Reviewer 2}
+
+
+\end{document}
