@@ -86,16 +86,16 @@ We thank reviewer 2 for reading our work and for providing detailed feedback whi
 
 \dotfill
 
-\textbf{Reviewer: } \textit{While describing the case setup in Section 2.2, the "flow advancement time", $T_A$ (also
+\textbf{1. Reviewer: } \textit{While describing the case setup in Section 2.2, the "flow advancement time", $T_A$ (also
 	referred in Figure 1) is considered as half of the prediction horizon $T$. Would $T_A$ (and
 	therefore $T$) be inflow dependent as the time delay (the time it takes for particles to
 	move from the upstream to downstream turbine(s))? Have you investigated if changing
 	$T$ (and/or $T_A$) has any effects on the resulting optimum $C_T$ set-points and on the power
 	gain?}
 
-\textbf{Response: } Indeed, $T$ and $T_A$ are important parameters in the receding-horizon approach. The optimization horizon $T$ can indeed be considered inflow-dependent. In our case, it is chosen as the time it takes for the flow to pass approximately four rows of turbines. In theory, it is desirable to have $T$ cover an entire wind-farm throughflow. In practice however, control over long time horizons is complicated by the chaotic nature of turbulence accompanied by adjoint gradient inaccuracies, and we choose $T$ as long as possible for our optimization to be unharmed by these inaccuracies (i.e. 240 s). The sensitivity of the power gains to the time horizon has not been formally quantified, yet it is reasonable to expect that the potential for beneficial interaction between turbines that are located more than three rows apart is limited. 
+\textbf{Response: } It is true that $T$ and $T_A$ are important parameters in the receding-horizon approach. The optimization horizon $T$ can indeed be considered inflow-dependent. In our case, it is chosen as the time it takes for the flow to pass approximately four rows of turbines. In theory, it is desirable to have $T$ cover an entire wind-farm throughflow. In practice however, control over long time horizons is complicated by the chaotic nature of turbulence accompanied by adjoint gradient inaccuracies, and we choose $T$ as long as possible without having the optimization be affected by these inaccuracies (i.e. 240 s). The sensitivity of the power gains to the time horizon has not been formally quantified, yet it is reasonable to expect that the potential for beneficial interaction between turbines that are located more than three rows apart is limited. 
 
-The choice of $T_A$ is driven by conflicting incentives of reducing computational cost ($T_A \rightarrow T$) and mitigating finite-horizon effects ($T_A \rightarrow 0$). As a rule of thumb, we have been using $T_A = T/2$ in previous work. In the MM17 paper we have also tried $T_A = T/4$ and found that the effect on power gain was limited. (TODO: Perhaps include a figure here? )
+The choice of $T_A$ is driven by conflicting incentives of reducing computational cost ($T_A \rightarrow T$) and mitigating finite-horizon effects ($T_A \rightarrow 0$). As a rule of thumb, we have been using $T_A = T/2$ in previous work. In the MM17 paper we have also tried $T_A = T/4$ and found that the effect on power gain was limited.
 
 Both concepts described above are discussed in more detail in the MM17 paper. To keep the description of the case setup concise in the current work, we simply add that $T = 240$ s corresponds to the time to pass four turbine rows, and further refer to MM17 for further elaboration of methodological choices. We have updated the revised manuscript as follows (l XX p XX): 
 
@@ -111,7 +111,7 @@ and (l XX p XX, end of Section 2.2):
 
 \dotfill
 
-\textbf{Reviewer: } \textit{As clearly seen in Figure 4c and 4d, there is a significant increase in turbulence
+\textbf{2. Reviewer: } \textit{As clearly seen in Figure 4c and 4d, there is a significant increase in turbulence
 	further downstream. In addition to the TKE and the transport, would be nice to have the
 	turbulence intensity TI values (as listed later on page 20, 10\% for the baseline case),
 	both for the baseline case and the maximum added TI reported - possibly somewhere
@@ -131,7 +131,7 @@ Furthermore, we thank the reviewer for pointing out the typos in the caption. Th
 
 \dotfill
 
-\textbf{Reviewer: } \textit{On page 10, around line 10, the argument of "upstream actions do not require a
+\textbf{3. Reviewer: } \textit{On page 10, around line 10, the argument of "upstream actions do not require a
 	specific downstream response in order to increase power in that downstream row",
 	which is also paraphrased in the conclusions, needs to be elaborated. This rather
 	broad conclusion seem to oversee the probability of the curtailment of the downstream
@@ -172,7 +172,7 @@ However, we do believe that the sinusoidal thrust control strategy is something 
 
 \dotfill
 
-\textbf{Reviewer: } \textit{On page 13, line 13, "the presence of the flow invariant features of the control signals"
+\textbf{4. Reviewer: } \textit{On page 13, line 13, "the presence of the flow invariant features of the control signals"
 	needs further justification as Figure 11 would also depend on how variant the flow
 	features are in the simulations. That should include both the spatial and temporal
 	variance within the 30-min window. As far as the field measurements are concerned,
@@ -203,7 +203,7 @@ cases.
 
 \dotfill
 
-\textbf{Reviewer: } \textit{On page 17, around line 5, a very nice example on how to implement the optimized
+\textbf{5. Reviewer: } \textit{On page 17, around line 5, a very nice example on how to implement the optimized
 	sinusoidal CT is presented. The practical examples can be further improved by a
 	short discussion on the expected response time of such increases in tip speed ratio
 	on a machine with high inertia. That would put the estimated sine wave period into
@@ -219,14 +219,14 @@ the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furth
 
 \dotfill
 
-\textbf{Reviewer: } \textit{For Section 4.2.3, the header ``Full-scale wind farm test" is a bit misleading... Suggest
+\textbf{6. Reviewer: } \textit{For Section 4.2.3, the header ``Full-scale wind farm test" is a bit misleading... Suggest
 	to change to "Full-scale wind farm simulations (in LES)" instead.}
 
 \textbf{Response: } Agreed, we have changed the section header to ``Full-scale wind-farm LES"
 
 \dotfill
 
-\textbf{Reviewer: } \textit{On Figure 19, why would the power decrease after Row 5 for the sinusoidal case?}
+\textbf{7. Reviewer: } \textit{On Figure 19, why would the power decrease after Row 5 for the sinusoidal case?}
 
 \textbf{Response: } This can be explained based on Figure 20: it can be seen from the cross-section views that by sinusoidally varying first-row thrust, the time-averaged axial velocity at the turbine disk for R2 is increased, but the flow above the turbine disk is actually slowed down, hence indicating that momentum is entrained from the internal boundary layer above the turbine canopy. In downstream rows, this high momentum zone expands and mixes with the background flow field. Starting from R5, this zone is almost completely dissipated, and the disk velocity is actually slighter lower than in the reference case. In short, the sinusoidal control actions of the first row actually entrain momentum from the surrounding flow that would otherwise be entrained by natural turbulent mixing further downstream in the wind farm. 
 
@@ -240,7 +240,7 @@ We have incorporated this discussion in the revised version of the manuscript as
 
 \dotfill
 
-\textbf{Reviewer: } \textit{Page 22 around line 5, the (inevitable) discussions on loads are included. In addition
+\textbf{8. Reviewer: } \textit{Page 22 around line 5, the (inevitable) discussions on loads are included. In addition
 	to the loads on the controlled upstream turbine, Figure 20(b) indicates partial wakes
 	on the further downstream rows of turbines. Therefore, the section should be improved
 	by highlighting the probable increase in fatigue loading for not just turbine(s) R1 but for
@@ -254,7 +254,7 @@ We have incorporated this discussion in the revised version of the manuscript as
 
 \dotfill
 
-\textbf{Reviewer: } \textit{On the grammatical note, the manuscript is clear and easy to follow. The only comment
+\textbf{9. Reviewer: } \textit{On the grammatical note, the manuscript is clear and easy to follow. The only comment
 	might be on the use of Sect. or Section; Fig. or Figure references.}
 
 \textbf{Response: } We have followed the official guidelines for referring to figures and sections as provided by the publisher, paraphrasing from the website:\
