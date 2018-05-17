@@ -26,21 +26,21 @@ We thank the reviewer for his/her constructive comments and are pleased with the
 
 \textbf{Response:} The reason for this different behavior of the downstream vs upstream turbines is twofold:
 \begin{enumerate}
-	\item The Extremum Seeking Control (ESC) approach by Ciri \emph{et al.} differs fundamentally from our approach. In our approach, we simultaneously optimize all control variables over a given time horizon, which allows for full dynamic cooperation and interaction between all turbines. In the ESC, controls are optimized one by one in the sense that ESC is initiated on the first row turbine and will be activated on the subsequent row only after its upstream neighbor has converged to a steady state solution. In this way, dynamic control and interaction between controls in different turbines are discarded a priori. Furthermore, although this is not an inherent limitation of the ESC approach, it seems that Ciri \emph{et al.} optimize for individual turbine power instead of total wind-farm power (see Eq. 10 $P_i$ is used instead of $\sum_i P_i$). Note that in Santoni \emph{et al.} (from the same research group as Ciri \emph{et al.}), where a Jensen model is used to optimize total wind-farm power using the individual tip speed ratios, it is also found that after full-farm optimization the downstream turbine operates at its individually optimal TSR (consistent with our observations).
+	\item The Extremum Seeking Control (ESC) approach by Ciri \emph{et al.} differs fundamentally from our approach. In our approach, we simultaneously optimize all control variables over a given time horizon, which allows for full dynamic cooperation and interaction between all turbines. In the ESC, controls are optimized one by one in the sense that ESC is initiated on the first row turbine and will be activated on the subsequent row only after its upstream neighbor has converged to a steady state solution. In this way, dynamic control and interaction between controls in different turbines are discarded a priori. Furthermore, although this is not an inherent limitation of the ESC approach, Ciri \emph{et al.} optimize for individual turbine power instead of total wind-farm power (see Eq. 10 $P_i$ is used instead of $\sum_i P_i$). This is explicitly mentioned in the title of their follow up paper (Ciri \emph{et al.} Large-eddy simulations with extremum-seeking control for individual wind turbine power optimization)
 	
 	\item In our modeling approach, we make abstraction of detailed turbine dynamics in the sense that we directly control the thrust coefficient $C_T'$ instead of the generator torque or tip speed ratio. In this sense, the optimal thrust coefficient value of a turbine with no downstream neighbors can be analytically found to be $C_T' = 2$. In Ciri \emph{et al.}, the authors indicate that the reason why the TSR in the downstream rows (around 6.5) does not correspond to the individual optimal TSR (7.5) of individual turbines is that the TSR depends on a reference velocity and (direct quotation) ``As a consequence, the TSR is not a meaningful indicated of a waked turbine operating condition". 
 	
 \end{enumerate}
 
-Summarizing, the inverse behavior of the control dynamics compared to Ciri \emph{et al.} can be attributed to the difference in approach to wind-farm control (dynamic full-farm optimization vs steady one-by-one optimization) as well as the implementation of the turbine control ($C_T'$ vs $\lambda$). We believe that, if we were to constrain ourselves to steady control and would control a similarly defined $\lambda$ as in Ciri \emph{et al.}, our observations would be similar to the latter study. Note that Ciri \emph{et al.} do not increase wind-farm power over the case with turbines operating at locally optimal TSR, whereas our dynamic approach allows to improve power significantly over the case with locally optimal operation. 
+Summarizing, the inverse behavior of the control dynamics compared to Ciri \emph{et al.} can be attributed to the difference in approach to wind-farm control (dynamic full-farm optimization vs steady sequential and individual optimization) as well as the implementation of the turbine control ($C_T'$ vs $\lambda$). In our opinion, the current study (full-farm dynamic wind-farm optimization) and that of Ciri \emph{et al.} (providing a practical ESC method for optimizing individual turbines) cannot be directly compared. 
 
-In our opinion, the current study (full-farm dynamic wind-farm optimization) and that of Ciri \emph{et al.} (providing a practical ESC method for optimizing individual turbines) cannot be directly compared. However, we understand the contrast in the results and therefore added a small comment to the revised manuscript (WM - WEET NIET OF WE DIT WEL ECHT MOETEN DOEN, COMMENTS KOMT WAT VERLOREN UIT IN MANUSCRIPT, MISSCHIEN GEWOON REVIEWER OVERTUIGEN DAT WE DIT NIET INCLUDEN?) (l. ??, p. ??):
+However, we understand the contrast in the results and therefore added a small comment to the revised manuscript  (l. ??, p. ??):
 
 ``
-... is not monotonous. Note that these observations are in contrast to the study of Ciri \emph{et al.} (REF), where Extremum Seeking Control is applied to optimize an array of three turbines and it was found that the set points in the first-row turbines remain untouched from their locally optimal values whereas downstream turbines are re-optimized for wake conditions. This contrast can mainly be attributed to our dynamic control approach, which allows for proper improvement of downstream flow conditions (which is not the case for set-point control as in Ciri \emph{et al.}), and that our ADM makes abstraction of any re-optimization of TSR.
+... is not monotonous. \textbf{Note that these observations are in contrast to the study of Ciri et al. 2017, where extremum seeking control is applied to optimize individual turbines in an array of three turbines. They found that set points in the first-row turbines remain untouched from their locally optimal values whereas downstream turbines are re-optimized for wake conditions. This contrast can be attributed to our dynamic and simultaneous wind-farm control approach, which differs from their sequential individual set-point control.  Furthermore, self-optimization in the latter study is achieved by recalibrating the torque gain. The baseline controller in our current actuator disk model makes abstraction of pitch and generator torque control and keeps $C_T'$ at its theoretical optimum instead.}
 ''
 
-WM - KAN WEL GOED ZIJN DAT ROTEA HIER DE REVIEWER IS - ZIEN DAT WE NIETS FOUT ZEGGEN. ANTWOORD IS NOG NIET ZO SCHERP ALS IK HET ZELF WIL. VOORAL IN ENUMERATE NOG WAT TE KNIPPEN
+WM - WEET NIET OF WE DIT WEL ECHT MOETEN DOEN, MISSCHIEN GEWOON REVIEWER OVERTUIGEN DAT WE DIT NIET INCLUDEN? TE BESPREKEN
 
 \dotfill
 
@@ -64,8 +64,8 @@ We have slightly modified the statement in the revised manuscript to avoid any c
 
 ``
 ... be \textbf{attained by the NREL 5MW turbine with a slight modification in the rotor design}, i.e. a 50\% increase in blade chord length and an operational tip speed ratio 25\% higher than 
-the original design value (see Goit and Meyers, 2015, Appendix A)
-'' 
+the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furthermore, given this redesign, dynamic reductions from this maximum value could be realized through pitch control. More specifically, based on speculated specifications of similar turbines in practice, the NREL 5 MW is designed with a pitch rate of $8^{\circ}/$s. This implies that the rotor can go from power maximization ($0^\circ$ pitch) to total curtailment in fully feathered blade position ($90^\circ$ pitch) in 11.25 seconds (Jonkman et al. 2009).}
+''
 
 
 
@@ -93,7 +93,7 @@ We thank reviewer 2 for reading our work and for providing detailed feedback whi
 	$T$ (and/or $T_A$) has any effects on the resulting optimum $C_T$ set-points and on the power
 	gain?}
 
-\textbf{Response: } Indeed, $T$ and $T_A$ are important parameters in the receding-horizon approach. The optimization horizon $T$ can indeed be considered inflow-dependent. In our case, it is the time it takes for the flow to pass approximately four rows of turbines. In theory, it is desirable to have $T$ cover an entire wind-farm throughflow. In practice however, control over long time horizons is complicated by the chaotic nature of turbulence accompanied by adjoint gradient inaccuracies, and we choose $T$ as long as possible for our optimization to be unharmed by these inaccuracies (i.e. 240 s). The sensitivity of the power gains to the time horizon has not been formally quantified, yet it is reasonable to expect that the potential for beneficial interaction between turbines that are located more than three rows apart is limited. 
+\textbf{Response: } Indeed, $T$ and $T_A$ are important parameters in the receding-horizon approach. The optimization horizon $T$ can indeed be considered inflow-dependent. In our case, it is chosen as the time it takes for the flow to pass approximately four rows of turbines. In theory, it is desirable to have $T$ cover an entire wind-farm throughflow. In practice however, control over long time horizons is complicated by the chaotic nature of turbulence accompanied by adjoint gradient inaccuracies, and we choose $T$ as long as possible for our optimization to be unharmed by these inaccuracies (i.e. 240 s). The sensitivity of the power gains to the time horizon has not been formally quantified, yet it is reasonable to expect that the potential for beneficial interaction between turbines that are located more than three rows apart is limited. 
 
 The choice of $T_A$ is driven by conflicting incentives of reducing computational cost ($T_A \rightarrow T$) and mitigating finite-horizon effects ($T_A \rightarrow 0$). As a rule of thumb, we have been using $T_A = T/2$ in previous work. In the MM17 paper we have also tried $T_A = T/4$ and found that the effect on power gain was limited. (TODO: Perhaps include a figure here? )
 
@@ -113,7 +113,7 @@ and (l XX p XX, end of Section 2.2):
 
 \textbf{Reviewer: } \textit{As clearly seen in Figure 4c and 4d, there is a significant increase in turbulence
 	further downstream. In addition to the TKE and the transport, would be nice to have the
-	turbulence intensity TI values (as listed later on page 20, 10% for the baseline case),
+	turbulence intensity TI values (as listed later on page 20, 10\% for the baseline case),
 	both for the baseline case and the maximum added TI reported - possibly somewhere
 	around Figure 4. That again would give an indication on the applicability compared to
 	the field values observed. Also note the typo in the caption of Figure 4: after c) all the
@@ -162,7 +162,7 @@ Furthermore, we thank the reviewer for pointing out the typos in the caption. Th
 
 We thank the reviewer for this comment. We agree that statements and conclusions made throughout section 3 are specific to the current case and should therefore be interpreted with care. However, possible curtailment is not the only reason why certain statements in this section could be invalidated, e.g. possible phase-locked correlated control actions between turbines (which were found not to be present in the current case) would invalidate the same statement as referred to by the reviewer.
 
-We have updated the manuscript to be more explicit that results are not overall conclusions for wind-farm control in general, but should be interpreted as observations of the current optimal control case. This has been done at the beginning of Section 3, prior to the elaboration of analyses and experiments as follows (l XX p XX):
+We have updated the manuscript to be more explicit in the sense that results are not overall conclusions for wind-farm control in general, but should be interpreted as observations of the current optimal control case. This has been done at the beginning of Section 3, prior to the elaboration of analyses and experiments as follows (l XX p XX):
 
 `` 
 ... to uncover some of the characteristics of these control signals. \textbf{Note that the conclusions drawn within this section should be interpreted as observations of the current C3t5 optimal control cases, given specific wind-farm layout and flow conditions, and hence cannot just be generalized for any wind-farm control in general.}
@@ -186,7 +186,7 @@ However, we do believe that the sinusoidal thrust control strategy is something 
 We have incorporated this in the revised manuscript as follows (p ??): 
 
 ``
-... the column swap is performed in 2 random independent ways. \textbf{The variability of flow conditions for different columns can be qualitatively observed in Figure 2. To further strengthen the hypotheses of the current experiment, we verified that the  correlation between flow conditions in different columns is small, i.e. with an average Pearson correlation coefficient of 0.12 between columns for the incoming velocity fluctuations 6$D$ upstream of the first row.}
+... the column swap is performed in 2 random independent ways. \textbf{The variability of flow conditions for different columns can be qualitatively observed in Figure 2. To further strengthen the hypothesis of the current experiment, we verified that the  correlation between flow conditions in different columns is small, i.e. with an average Pearson correlation coefficient of 0.12 between columns for the incoming velocity fluctuations 6$D$ upstream of the first row.}
 ''
 
 and (p ??):
@@ -209,11 +209,11 @@ cases.
 	on a machine with high inertia. That would put the estimated sine wave period into
 	perspective as well.}
 
-\textbf{Response: } Indeed, the high inertia of the rotor could be a compromise to achieving the desired sinusoidal thrust coefficient behavior. However, given the proposed redesign of the NREL 5MW rotor, reductions from the maximum $C_T' = 3.5$ could be achieved rapidly by using the fast pitch actuators with which modern turbines are equipped. We have added this comment to the discussion as follows:  
+\textbf{Response: } Indeed, the high inertia of the rotor could be a compromise to achieving the desired sinusoidal thrust coefficient behavior. However, given the proposed redesign of the NREL 5MW rotor, dynamic reductions from the maximum $C_T' = 3.5$ could be achieved rapidly by using the fast pitch actuators with which modern turbines are equipped. We have added this comment to the discussion as follows:  
 
 ``
 ... be \textbf{attained by the NREL 5MW turbine with a slight modification in the rotor design}, i.e. a 50\% increase in blade chord length and an operational tip speed ratio 25\% higher than 
-the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furthermore, given this redesign of the NREL 5MW, reductions from this maximum value of 3.5 could be achieved rapidly by using the fast pitch actuators with which modern turbines are equipped. }
+the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furthermore, given this redesign, dynamic reductions from this maximum value could be realized through pitch control. More specifically, based on speculated specifications of similar turbines in practice, the NREL 5 MW is designed with a pitch rate of $8^{\circ}/$s. This implies that the rotor can go from power maximization ($0^\circ$ pitch) to total curtailment in fully feathered blade position ($90^\circ$ pitch) in 11.25 seconds (Jonkman et al. 2009).}
 '' 
 
 
@@ -232,9 +232,10 @@ the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furth
 
 Moreover, it can be seen that the full optimal control (C3t5 in Figure 20) however is able to contain the high momentum zone by continuously improving the mixing process with the background boundary layer. The mechanisms thereof however remain elusive to date, and are subject of further investigation. 
 
-We have incorporated this discussion in the revised version of the manuscript as follows: 
+We have incorporated this discussion in the revised version of the manuscript as follows (p ?? l ??): 
+
 ``
-TODO
+... with higher rotor velocities in the downstream as well.  \textbf{Note also that, for the fifth row, the disk velocity is slightly lower for the sinusoidal control case than for the reference case, consistent with the decreased power extraction observed in Fig. 19. This can be explained by the fact that first-row control actions cause enhanced entrainment of momentum from the internal boundary layer above the turbine canopy that would otherwise be entrained by natural turbulent mixing in passive downstream rows. In consequence, lesser entrainment occurs for downstream rows, resulting in a slight decrease in disk velocities from the fifth row onwards.}
 ''
 
 \dotfill
