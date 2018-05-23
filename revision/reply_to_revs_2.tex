@@ -1,6 +1,7 @@
 \documentclass[]{article}
 
 \usepackage{graphicx}
+\usepackage{color}
 
 
 \setlength{\parindent}{0em}
@@ -24,23 +25,22 @@ We thank the reviewer for his/her constructive comments and are pleased with the
 	
 \textit{Where the TSR of downstream turbines is re-optimized for wake conditions (and the upstream turbine is left as is at the end of the optimization). It would seem the difference in modeling methods and/or how turbine control is implemented yields the different results, but I believe it would be worth discussing the difference, for example around the paragraph beginning with "The figure shows that the first row (R1)..." on page 12.}
 
-\textbf{Response:} The reason for this different behavior of the downstream vs upstream turbines is twofold:
-\begin{enumerate}
-	\item The Extremum Seeking Control (ESC) approach by Ciri \emph{et al.} differs fundamentally from our approach. In our approach, we simultaneously optimize all control variables over a given time horizon, which allows for full dynamic cooperation and interaction between all turbines. In the ESC, controls are optimized one by one in the sense that ESC is initiated on the first row turbine and will be activated on the subsequent row only after its upstream neighbor has converged to a steady state solution. In this way, dynamic control and interaction between controls in different turbines are discarded a priori. Furthermore, although this is not an inherent limitation of the ESC approach, Ciri \emph{et al.} optimize for individual turbine power instead of total wind-farm power (see Eq. 10 $P_i$ is used instead of $\sum_i P_i$). This is explicitly mentioned in the title of their follow up paper (Ciri \emph{et al.} Large-eddy simulations with extremum-seeking control for individual wind turbine power optimization)
-	
-	\item In our modeling approach, we make abstraction of detailed turbine dynamics in the sense that we directly control the thrust coefficient $C_T'$ instead of the generator torque or tip speed ratio. In this sense, the optimal thrust coefficient value of a turbine with no downstream neighbors can be analytically found to be $C_T' = 2$. In Ciri \emph{et al.}, the authors indicate that the reason why the TSR in the downstream rows (around 6.5) does not correspond to the individual optimal TSR (7.5) of individual turbines is that the TSR depends on a reference velocity and (direct quotation) ``As a consequence, the TSR is not a meaningful indicated of a waked turbine operating condition". 
-	
-\end{enumerate}
+\textbf{Response:} This is an interesting comment. It is correct that this contrast results from the way turbines and their controls are modeled in the current study and that of Ciri et al. The reference disk-based thrust coefficient $C_T' = 2$ used here actually implies intrinsic self-optimization of blade pitch and generator torque to local flow conditions, even though these actions are not resolved by our current actuator disk formulation which directly controls $C_T'$. In case these degrees of freedom would be resolved, for instance using an actuator line model as in Ciri et al., the ESC from the latter study could e.g. be used to optimize torque controller gain in order to achieve an effective $C_T' \approx 2$. 
 
-Summarizing, the inverse behavior of the control dynamics compared to Ciri \emph{et al.} can be attributed to the difference in approach to wind-farm control (dynamic full-farm optimization vs steady sequential and individual optimization) as well as the implementation of the turbine control ($C_T'$ vs $\lambda$). In our opinion, the current study (full-farm dynamic wind-farm optimization) and that of Ciri \emph{et al.} (providing a practical ESC method for optimizing individual turbines) cannot be directly compared. 
-
-However, we understand the contrast in the results and therefore added a small comment to the revised manuscript  (l. ??, p. ??):
+We have included the fact that the reference case already implies self-optimization in the revised manuscript as follows (p 4, l. 21): 
 
 ``
-... is not monotonous. \textbf{Note that these observations are in contrast to the study of Ciri et al. 2017, where extremum seeking control is applied to optimize individual turbines in an array of three turbines. They found that set points in the first-row turbines remain untouched from their locally optimal values whereas downstream turbines are re-optimized for wake conditions. This contrast can be attributed to our dynamic and simultaneous wind-farm control approach, which differs from their sequential individual set-point control.  Furthermore, self-optimization in the latter study is achieved by recalibrating the torque gain. The baseline controller in our current actuator disk model makes abstraction of pitch and generator torque control and keeps $C_T'$ at its theoretical optimum instead.}
+A conventionally (greedily) controlled wind farm with steady $C_T' = 2$ was defined as a reference case. \textbf{Note that this would correspond to a farm with ideal turbines for which generator torque is being controlled dynamically to track the maximum power point at the Betz limit perfectly.} Several different optimal control cases were defined, ...
 ''
 
-WM - WEET NIET OF WE DIT WEL ECHT MOETEN DOEN, MISSCHIEN GEWOON REVIEWER OVERTUIGEN DAT WE DIT NIET INCLUDEN? TE BESPREKEN
+However, even given the discussion above, it is not unimaginable that a turbine could temporarily outperform this greedy control setting, e.g. by timely reacting to incoming flow accelerations. This is what we would refer to as self-optimization. {\color{blue} We have explicitly defined this in the text as follows (p ??):
+
+``
+...This suggests that self-optimization \textbf{(i.e. temporarily outperforming conventional greedy control in response to incoming flow events)} is very limited: the optimal controls for a given turbine are designed to create ...
+'' }
+
+(IS DIT OKE?? Kan het deel in blauw misschien beter gewoon weglaten?)
+
 
 \dotfill
 
@@ -58,16 +58,16 @@ WM - WEET NIET OF WE DIT WEL ECHT MOETEN DOEN, MISSCHIEN GEWOON REVIEWER OVERTUI
 
 \textbf{Response:} No, the method does not imply a variable chord length. 
 
-Current turbines are designed to approach maximum $C_T'$ values around 2, corresponding to the Betz limit. Although this maximum value can be increased by increasing the operational tip speed ratio (TSR), aiming to do so by adapting the pitch angle would inevitably lead to severe efficiency losses due to stall on the turbine blades. Therefore, we provide an example of how an alternative turbine design (i.e. with an increased chord length and operational TSR) could attain a maximum $C_T'$ of 3.5. Given such a turbine design, achieving thrust ratings $C_T' < 3.5$ is straightforward by pitching blades towards the feather position. 
+Current turbines are designed to approach maximum $C_T'$ values around 2, corresponding to the Betz limit. Aiming to increase thrust by adapting the pitch angle would inevitably lead to severe efficiency losses due to stall on the turbine blades. Therefore, we provide an example of how an alternative turbine design (i.e. with an increased chord length and operational TSR) could attain a maximum $C_T'$ of 3.5. Given such a turbine design, achieving thrust ratings $C_T' < 3.5$ is straightforward by pitching blades towards the feather position. 
 
 We have slightly modified the statement in the revised manuscript to avoid any confusion with regard to possibly having the chord length as a control variable. (p. ??, l. ??):
 
 ``
-... be \textbf{attained by the NREL 5MW turbine with a slight modification in the rotor design}, i.e. a 50\% increase in blade chord length and an operational tip speed ratio 25\% higher than 
-the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furthermore, given this redesign, dynamic reductions from this maximum value could be realized through pitch control. More specifically, based on speculated specifications of similar turbines in practice, the NREL 5 MW is designed with a pitch rate of $8^{\circ}/$s. This implies that the rotor can go from power maximization ($0^\circ$ pitch) to total curtailment in fully feathered blade position ($90^\circ$ pitch) in 11.25 seconds (Jonkman et al. 2009).}
+The resulting maximum thrust coefficient of 3.5 can, e.g., be \textbf{attained by the NREL 5MW turbine with a slight modification in the rotor design}, i.e. a 50\% increase in blade chord length and an operational tip speed ratio 25\% higher than 
+the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furthermore, given such redesign, dynamic reductions from this value could be realized through blade pitch control, for which actuation in the order of $10^\circ/$s is possible (see, e.g., Jonkman et al. 2009).} 
 ''
 
-
+Note that this control strategy is not unique and is solely given as an indication for the technical feasibility of tracking the proposed $C_T'$ waveform. In practice, we expect that this can also be achieved through a combination of generator torque and blade pitch control. This is subject of ongoing investigation.
 
 
 \clearpage
@@ -191,13 +191,14 @@ cases.
 	on a machine with high inertia. That would put the estimated sine wave period into
 	perspective as well.}
 
-\textbf{Response: } Indeed, the high inertia of the rotor could be a compromise to achieving the desired sinusoidal thrust coefficient behavior. However, given the proposed redesign of the NREL 5MW rotor, dynamic reductions from the maximum $C_T' = 3.5$ could be achieved rapidly by using the fast pitch actuators with which modern turbines are equipped. We have added this comment to the discussion as follows:  
+\textbf{Response: } We thank the reviewer for this suggestion. Dynamic reductions from the maximum $C_T' = 3.5$ could, for instance, be achieved by using the fast pitch actuators with which modern turbines are equipped. We have added this comment to the discussion as follows (p ??):  
 
 ``
-... be \textbf{attained by the NREL 5MW turbine with a slight modification in the rotor design}, i.e. a 50\% increase in blade chord length and an operational tip speed ratio 25\% higher than 
-the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furthermore, given this redesign, dynamic reductions from this maximum value could be realized through pitch control. More specifically, based on speculated specifications of similar turbines in practice, the NREL 5 MW is designed with a pitch rate of $8^{\circ}/$s. This implies that the rotor can go from power maximization ($0^\circ$ pitch) to total curtailment in fully feathered blade position ($90^\circ$ pitch) in 11.25 seconds (Jonkman et al. 2009).}
-'' 
-
+The resulting maximum thrust coefficient of 3.5 can, e.g., be \textbf{attained by the NREL 5MW turbine with a slight modification in the rotor design}, i.e. a 50\% increase in blade chord length and an operational tip speed ratio 25\% higher than 
+the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furthermore, given such redesign, dynamic reductions from this value could be realized through blade pitch control, for which actuation in the order of $10^\circ/$s is possible (see, e.g., Jonkman et al. 2009).} 
+''
+ 
+Note that this control strategy is not unique and is solely given as an indication for the technical feasibility of tracking the proposed $C_T'$ waveform. In practice, we expect that this can also be achieved through a combination of generator torque and blade pitch control. This is subject of ongoing investigation.  
 
 \dotfill
 
@@ -212,7 +213,7 @@ the original design value (see Goit and Meyers, 2015, Appendix A). \textbf{Furth
 
 \textbf{Response: } This can be explained based on Figure 20: it can be seen from the cross-section views that by sinusoidally varying first-row thrust, the time-averaged axial velocity at the turbine disk for R2 is increased, but the flow above the turbine disk is actually slowed down, hence indicating that momentum is entrained from the internal boundary layer above the turbine canopy. In downstream rows, this high momentum zone expands and mixes with the background flow field. Starting from R5, this zone is almost completely dissipated, and the disk velocity is actually slighter lower than in the reference case. In short, the sinusoidal control actions of the first row actually entrain momentum from the surrounding flow that would otherwise be entrained by natural turbulent mixing further downstream in the wind farm. 
 
-Moreover, it can be seen that the full optimal control (C3t5 in Figure 20) however is able to contain the high momentum zone by continuously improving the mixing process with the background boundary layer. The mechanisms thereof however remain elusive to date, and are subject of further investigation. 
+Moreover, it can be seen that the full optimal control (C3t5 in Figure 20) is able to contain the high momentum zone by continuously improving the mixing process with the background boundary layer. The mechanisms thereof however remain elusive to date, and are subject of further investigation. 
 
 We have incorporated this discussion in the revised version of the manuscript as follows (p ?? l ??): 
 
